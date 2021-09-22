@@ -34,14 +34,18 @@ runs:
         echo -e "${BLUE}[ STEP - VULNERABILITIES CHECK ] > Scanning ${{ inputs.image-ref }} for vulnerabilities.${BLANK}"
         echo -e "${CYAN}[ INFO ] > Grype version.${BLANK}"
         grype version | grep -i "^version"
-        echo -e "${YELLOW}[ EXECUTING ] > Updating Trivy DB.${BLANK}"
+        echo -e "${YELLOW}[ EXECUTING ] > Updating Grype DB.${BLANK}"
         grype db update
         echo -e "${YELLOW}[ EXECUTING ] > Executing ${{ inputs.image-ref }} vuln scan.${BLANK}"
+
+        if [ "${{ inputs.template }}" ]then;
+          TEMPLATE="--template ${{ inputs.template }}"
+        fi
 
         grype ${{ inputs.image-ref }} --fail-on ${{ inputs.fail-on }} \
                                       --output ${{ inputs.output }} \
                                       --scope ${{ inputs.scope }} \
-                                      --template ${{ inputs.template }} \
+                                      $TEMPLATE \
                                       ${{ inputs.verbose }}
       shell: bash
       env:
