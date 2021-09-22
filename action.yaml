@@ -38,6 +38,7 @@ runs:
         grype db update
         echo -e "${YELLOW}[ EXECUTING ] > Executing ${{ inputs.image-ref }} vuln scan.${BLANK}"
 
+        TEMPLATE=""
         if [ "${{ inputs.template }}" ]then;
           TEMPLATE="--template ${{ inputs.template }}"
         fi
