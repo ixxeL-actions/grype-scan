@@ -19,6 +19,7 @@ jobs:
       uses: ixxeL-actions/grype-scan@main
       with:
         image-ref: 'ixxel/multi-tools-alpine:latest'
+        transport: 'registry'
         fail-on: '""'
         output: 'table'
         scope: 'AllLayers'

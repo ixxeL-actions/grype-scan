@@ -5,6 +5,10 @@ inputs:
   image-ref:
     description: 'image reference'
     required: true
+  transport:
+    description: 'transport type for destination (docker,docker-archive,oci-dir,oci-archive,dir,sbom,registry)'
+    required: false
+    default: 'registry'
   fail-on:
     description: 'set the return code to 1 if a vulnerability is found with a severity >= the given severity'
     required: false
@@ -38,11 +42,11 @@ runs:
         grype db update
         echo -e "${YELLOW}[ EXECUTING ] > Executing ${{ inputs.image-ref }} vuln scan.${BLANK}"
 
-        grype ${{ inputs.image-ref }} --fail-on ${{ inputs.fail-on }} \
-                                      --output ${{ inputs.output }} \
-                                      --scope ${{ inputs.scope }} \
-                                      --template ${{ inputs.template }} \
-                                      ${{ inputs.verbose }}
+        grype ${{ inputs.transport }}:${{ inputs.image-ref }} --fail-on ${{ inputs.fail-on }} \
+                                                              --output ${{ inputs.output }} \
+                                                              --scope ${{ inputs.scope }} \
+                                                              --template ${{ inputs.template }} \
+                                                              ${{ inputs.verbose }}
       shell: bash
       env:
         RED: \033[1;31m
