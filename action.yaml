@@ -39,7 +39,7 @@ runs:
         echo -e "${YELLOW}[ EXECUTING ] > Executing ${{ inputs.image-ref }} vuln scan.${BLANK}"
 
         TEMPLATE=""
-        if [ "${{ inputs.template }}" ]then;
+        if [ "${{ inputs.template }}" ]; then
           TEMPLATE="--template ${{ inputs.template }}"
         fi
 
@@ -50,8 +50,6 @@ runs:
                                       ${{ inputs.verbose }}
       shell: bash
       env:
-        ARTIFACT_REF: ${{ steps.prepare-scan.outputs.ARTIFACT_REF }}
-        ARGS: ${{ steps.prepare-scan.outputs.ARGS }}
         RED: \033[1;31m
         GREEN: \033[1;32m
         YELLOW: \033[1;33m
