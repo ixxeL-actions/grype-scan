@@ -18,7 +18,7 @@ inputs:
     required: false
     default: 'Squashed'
   template:
-    description: 'specify the path to a Go template file (requires 'template' output to be selected)'
+    description: 'specify the path to a Go template file (requires template output to be selected)'
     required: false
     default: ''
   verbose:
@@ -29,10 +29,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - id: prepare-scan
-      run: |
-        export ARTIFACT_REF=${{ inputs.image-ref }}
-      shell: bash  
     - id: grype-scan
       run: |
         echo -e "${BLUE}[ STEP - VULNERABILITIES CHECK ] > Scanning ${{ inputs.image-ref }} for vulnerabilities.${BLANK}"
