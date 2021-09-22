@@ -20,7 +20,7 @@ inputs:
   template:
     description: 'specify the path to a Go template file (requires template output to be selected)'
     required: false
-    default: ''
+    default: '""'
   verbose:
     description: 'increase verbosity (-v = info, -vv = debug)'
     required: false
@@ -38,15 +38,10 @@ runs:
         grype db update
         echo -e "${YELLOW}[ EXECUTING ] > Executing ${{ inputs.image-ref }} vuln scan.${BLANK}"
 
-        TEMPLATE=""
-        if [ "${{ inputs.template }}" ]; then
-          TEMPLATE="--template ${{ inputs.template }}"
-        fi
-
         grype ${{ inputs.image-ref }} --fail-on ${{ inputs.fail-on }} \
                                       --output ${{ inputs.output }} \
                                       --scope ${{ inputs.scope }} \
-                                      $TEMPLATE \
+                                      --template ${{ inputs.template }} \
                                       ${{ inputs.verbose }}
       shell: bash
       env:

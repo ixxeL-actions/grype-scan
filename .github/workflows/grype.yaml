@@ -22,5 +22,5 @@ jobs:
         fail-on: '""'
         output: 'table'
         scope: 'AllLayers'
-        template: ''
+        template: '""'
         verbose: ''
