@@ -1,27 +1,28 @@
+---
 name: grype-scan-CI
 on:
   push:
     branches:
-      - main
+    - main
   pull_request:
     branches:
-      - main
+    - main
 jobs:
   test:
     strategy:
       matrix:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
-    container: 
+    container:
       image: ixxel/multi-tools-alpine:latest
     steps:
     - name: Grype image scan
       uses: ixxeL-actions/grype-scan@main
       with:
-        image-ref: 'ixxel/multi-tools-alpine:latest'
-        transport: 'registry'
+        image-ref: ixxel/multi-tools-alpine:latest
+        transport: registry
         fail-on: '""'
-        output: 'table'
-        scope: 'AllLayers'
+        output: table
+        scope: AllLayers
         template: '""'
         verbose: ''
